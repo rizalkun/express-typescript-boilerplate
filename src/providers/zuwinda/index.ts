@@ -5,13 +5,13 @@ class Zuwinda {
 
     private static instance: Zuwinda;
 
-    code = 200;
-    success = true;
     to: string = '';
     message: string | object = '';
-    headers: object = {}
+    base_url = ''
 
-    constructor() {}
+    constructor() {
+        this.base_url = 'https://api.zuwinda.com'
+    }
 
     static get(): Zuwinda {
         if (!Zuwinda.instance) {
@@ -31,7 +31,7 @@ class Zuwinda {
     }
 
     async sendSMS() {
-        await axios.post(`https://api.zuwinda.com/v1.2/message/sms/send-text`, {
+        await axios.post(`${this.base_url}/v1.2/message/sms/send-text`, {
             to: this.to,
             message: this.message
         }, {
@@ -42,7 +42,7 @@ class Zuwinda {
     }
 
     async sendWhatsapp() {
-        await axios.post(`https://api.zuwinda.com/v1.2/message/whatsapp/send-text`, {
+        await axios.post(`${this.base_url}/v1.2/message/whatsapp/send-text`, {
             instances_id: ZUWINDA_INSTANCES_ID,
             to: this.to,
             message: this.message
